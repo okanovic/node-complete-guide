@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 //const expressHbs = require('express-handlebars') //for hbs
 
+const errorController = require('./controllers/error')
+
 const app = express();
 
 
@@ -15,17 +17,15 @@ app.set('view engine', 'ejs')
 //app.set('view engine', 'pug')
 app.set('views', 'views')
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).render('404', { pageTitle: 'Page Not Found' })
-});
+app.use(errorController.get404);
 
 app.listen(3000);
