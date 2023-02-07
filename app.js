@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 //const expressHbs = require('express-handlebars') //for hbs
 
 const errorController = require('./controllers/error')
+const db = require('./util/database');
 
 const app = express();
 
