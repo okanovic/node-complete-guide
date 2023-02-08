@@ -18,7 +18,7 @@ exports.postAddProduct = (req, res, next) => {
   }).then((result) => {
     console.log("Product created")
   }).catch((err) => {
-    
+
   });
 }
 
@@ -57,13 +57,16 @@ exports.postEditProduct = (req, res, next) => {
 
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
+  Product.findAll().then((products) => {
+    console.log(products)
     res.render('admin/products', {
       prods: products,
       pageTitle: 'Admin Products',
       path: 'admin/products',
     })
-  })
+  }).catch((err) => {
+    console.log(err)
+  });
 }
 
 exports.postDeleteProduct = (req, res, next) => {
